@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Suraj Web</title>
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+form input:focus,
+form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0,242,254,0.6);
+}
+
+
+/* ===== ANIMATED TIMELINE ===== */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #00f2fe, #ffe600);
+    animation: growLine 1.8s ease forwards;
+}
+
+@keyframes growLine {
+    from { height: 0; }
+    to { height: 100%; }
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 35px;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.8s ease forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.3s; }
+.timeline-item:nth-child(2) { animation-delay: 0.6s; }
+.timeline-item:nth-child(3) { animation-delay: 0.9s; }
+.timeline-item:nth-child(4) { animation-delay: 1.2s; }
+.timeline-item:nth-child(5) { animation-delay: 1.5s; }
+
+@keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    background: #ffe600;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255,230,0,0.8);
+}
+
+.timeline-content {
+    padding-left: 35px;
+}
+
+.timeline-content h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.timeline-content p {
+    margin-top: 6px;
+    font-size: 15px;
+    color: #f0f0f0;
+}
+
+/* Mobile tweak */
+@media (max-width: 768px) {
+    .timeline { padding-left: 20px; }
+    .timeline-content { padding-left: 28px; }
+    .timeline-content h3 { font-size: 16px; }
+    .timeline-content p { font-size: 14px; }
+}
+
+/* ===== BASIC ===== */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg,#1d2671,#c33764,#159957,#155799);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: white;
+    padding-top: 80px;
+}
+
+@keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* ===== NAVBAR ===== */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 15px;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.menu-btn {
+    display: none;
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+@media(max-width:768px){
+    nav { display:none; flex-direction:column; }
+    nav.show { display:flex; }
+    .menu-btn { display:block; }
+}
+
+/* ===== CARDS ===== */
+.card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    padding: 30px;
+    margin: 40px 0;
+    border-radius: 18px;
+    animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+    from {opacity:0; transform:translateY(40px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+.card h2 {
+    background: linear-gradient(90deg,#ffdd00,#00ffff,#ff5edf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ===== IMAGES ===== */
+.doc-img {
+    width:100%;
+    max-width:800px;
+    border-radius:18px;
+    display:block;
+    margin:25px auto;
+    transition:0.4s;
+}
+.doc-img:hover { transform:scale(1.05); }
+
+/* ===== LOADER ===== */
+.loader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg,#1d2671,#c33764);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    animation: hideLoader 4s forwards;
+}
+
+@keyframes hideLoader {
+    0%,80% {opacity:1;}
+    100% {opacity:0; visibility:hidden;}
+}
+
+.logo {
+    font-size:48px;
+    letter-spacing:6px;
+    animation: logoReveal 1.5s ease forwards;
+}
+
+@keyframes logoReveal {
+    from {opacity:0; transform:scale(0.8); filter:blur(8px);}
+    to {opacity:1; transform:scale(1); filter:blur(0);}
+}
+
+.loading-bar {
+    width:260px;
+    height:8px;
+    background:rgba(255,255,255,0.3);
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.loading-progress {
+    width:0;
+    height:100%;
+    background:linear-gradient(90deg,#00f2fe,#ffe600);
+    animation: loadProgress 3s forwards;
+}
+
+@keyframes loadProgress { to{width:100%;} }
+
+/* ===== BUTTONS ===== */
+#themeBtn, #muteBtn {
+    position: fixed;
+    bottom: 20px;
+    padding:10px 16px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+#themeBtn { left:20px; }
+#muteBtn { right:20px; }
+
+body.light {
+    background:#f5f5f5;
+    color:#111;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div class="loader">
+    <div style="text-align:center;">
+        <div class="logo">SURAJ</div>
+        <p>Life Documentary</p>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+<nav id="navbar">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#connect">Connect</a>
+</nav>
+
+<header id="home" style="text-align:center;font-size:40px;">Suraj Web</header>
+
+<div class="container">
+
+<div class="card" id="about">
+<h2>👋 About Me</h2>
+<p>Hi, I am <b>Suraj</b>, a student, editor, gamer and beginner web developer.</p>
+<img class="doc-img" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f">
+</div>
+
+<div class="card" id="connect">
+<h2>🤝 Connect With Me</h2>
+<p>Email:kusrsuraj@gmail.com</p>
+<p>YouTube: Next3 Gamers</p>
+<p>Instagram: NotSurajXD</p>
+</div>
+<div class="card">
+    <h2>📨 Send Me a Message</h2>
+
+    <form action="https://formspree.io/f/mlgrrkzb" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+
+        <input type="email" name="email" placeholder="Your Email" required>
+
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+
+        <button type="submit">Send Message 🚀</button>
+    </form>
+</div>
+<p style="opacity:0.8; font-size:14px;">
+    📬 Your message will be sent directly to my email.
+</p>
+
+
+<div class="card" id="journey">
+    <h2>📖 My Journey</h2>
+    <p>
+        I started as a normal student with big dreams.
+        Over time, gaming, editing, and coding became part of my life.
+        This website is my journey, not the destination.
+    </p>
+</div>
+<div class="card" id="journey">
+    <h2>🧭 My Life Timeline</h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h3>👦 A Student With Dreams</h3>
+                <p>Started life as a normal student, curious about tech and creativity.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h3>🎮 Gaming Spark</h3>
+                <p>Gaming opened my mind to digital worlds and content creation.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h3>✂️ Editing Journey</h3>
+                <p>Learned video editing and storytelling through visuals.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h3>💻 Coding Begins</h3>
+                <p>Started learning HTML & CSS to build things on my own.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h3>🚀 Future Me</h3>
+                <p>Aiming to become a professional creator and programmer.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="card">
+    <h2>🧠 Skills I’m Learning</h2>
+    <p>✔ HTML & CSS (Web Development)</p>
+    <p>✔ Video Editing (CapCut / DaVinci)</p>
+    <p>✔ YouTube Content Creation</p>
+    <p>✔ Gaming & Tech Knowledge</p>
+</div>
+<div class="card">
+    <h2>⏰ My Daily Routine</h2>
+    <p>📚 School & Studies</p>
+    <p>🎮 Gaming & Relaxing</p>
+    <p>✂️ Video Editing</p>
+    <p>💻 Learning Coding</p>
+    <p>😴 Sleep & Repeat</p>
+</div>
+<div class="card">
+    <h2>🎥 My YouTube Dream</h2>
+    <p>
+        I want to grow on YouTube by creating
+        <b>creative, emotional and gaming-related content</b>.
+        My goal is improvement, not just views.
+    </p>
+</div>
+<div class="card">
+    <h2>💡 Why I Started Coding</h2>
+    <p>
+        Coding allows me to create things instead of only consuming them.
+        I want to build my own ideas, apps, and websites.
+    </p>
+</div>
+<div class="card">
+    <h2>🌱 My Future Goals</h2>
+    <p>🚀 Become a professional programmer</p>
+    <p>🎬 Master video editing</p>
+    <p>🌍 Build my own digital products</p>
+    <p>💰 Earn online with skills</p>
+    <p>🧠 Never stop learning</p>
+</div>
+
+</div>
+
+<footer style="text-align:center;opacity:0.7;">© 2025 Suraj</footer>
+
+<button id="themeBtn">🌙 Theme</button>
+<button id="muteBtn">🔊 Sound</button>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop src="https://assets.mixkit.co/music/preview/mixkit-deep-urban-623.mp3"></audio>
+<audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3"></audio>
+
+<script>
+/* MENU */
+function toggleMenu(){
+    document.getElementById("navbar").classList.toggle("show");
+}
+
+/* THEME */
+document.getElementById("themeBtn").onclick=()=>{
+    document.body.classList.toggle("light");
+};
+
+/* SOUND (user interaction required) */
+let enabled=false;
+document.addEventListener("click",()=>{
+    if(!enabled){
+        document.getElementById("bgMusic").volume=0.15;
+        document.getElementById("bgMusic").play();
+        enabled=true;
+    }
+},{once:true});
+
+document.querySelectorAll("a").forEach(a=>{
+    a.onclick=()=>document.getElementById("clickSound").play();
+});
+</script>
+
+</body>
+</html>
