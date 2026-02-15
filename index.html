@@ -221,20 +221,7 @@ nav a {
     z-index:9999;
     animation: hideLoader 4s forwards;
 }
-    <script>
-function showWelcomeMessage() {
-    const hour = new Date().getHours();
-    const messageElement = document.getElementById("welcomeMessage");
-
-    if (hour < 12) {
-        messageElement.innerText = "☀️ Good Morning Suraj!";
-    } 
-    else if (hour < 18) {
-        messageElement.innerText = "🌤 Good Afternoon Suraj!";
-    } 
-    else {
-        messageElement.innerText = "🌙 Good Evening Suraj!";
-    }
+  
 }
 
 showWelcomeMessage();
@@ -317,7 +304,7 @@ body.light {
 </nav>
 
 <header id="home" style="text-align:center;font-size:40px;">Suraj Web</header>
-<h2 id="welcomeMessage" style="text-align:center;"></h2>
+
 
 <div class="container">
 
@@ -485,6 +472,7 @@ document.querySelectorAll("a").forEach(a=>{
 
 </body>
 </html>
+
 
 
 
